@@ -9,20 +9,218 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#0B1F3E">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="206dp"
-            android:layout_height="71dp"
-            android:layout_marginTop="337dp"
-            android:layout_marginBottom="323dp"
-            android:text="about"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="327dp">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="89dp"
+                        android:layout_height="132dp"
+                        android:src="@drawable/lader"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.987"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.03" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="87dp"
+                        android:layout_height="39dp"
+                        android:gravity="center"
+                        android:text="ا.د/تيسير"
+                        android:textColor="#ECE3E3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.987"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.586" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="147dp"
+                        android:layout_height="41dp"
+                        android:text="كلمة العميد"
+                        android:textAllCaps="false"
+                        android:textColor="#F3EBEB"
+                        android:textDirection="firstStrongRtl"
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.537"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.052" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="287dp"
+                        android:layout_height="215dp"
+                        android:text="تعيش البشرية حاليا فى بداية القرن الحادى والعشرون بعد تطورات تكنولوجية هائلة فى نهاية القرن العشرون وهى بحق ثورة تكنولوجيا المعلومات والاتصالات والتى اصبح العالم بفضلها قرية واحدة والسرعة والتأثير فى جميع المجالات التى تتم بها هذة الثورة لم تشهد لها العلم من قبل مثيلا هذة التكنولوجيا تمثل الحاسبات والمعلومات...."
+                        android:textColor="#E3D7D7"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.016"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.642" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="297dp">
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="98dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:gravity="center"
+                        android:text="اهداف الكليه"
+                        android:textColor="#E4DBDB"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView19"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="36dp"
+                        android:text="1- خريج متميز قادر على الإبداع والابتكار: - تطوير البرامج التعليمية فى ضوء معايير أكاديمية معتمدة. - التطوير المستمر لفرص التعليم والتعلم للطلاب ورفع مستوى الخريجين. - الارتقاء بكفاية أعضاء هيئة التدريس والهيئة المعاونة. 2- رفع الكفاءة البحثية للكلية وتطوير الدراسات العليا:"
+                        android:textColor="#EFE5E5"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="398dp">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="6dp"
+                        android:gravity="center"
+                        android:text="رؤيه الكليه"
+                        android:textColor="#F1E8E8"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView15"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="296dp"
+                        android:layout_height="311dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="22dp"
+                        android:text="تتمثل رسالة الكلية في خدمة الطلاب والمجتمع، من خلال توفير التعليم المتميز، والبحوث المبتكرة، فى مجالات علوم الحاسب ونظم وتكنولوجيا المعلومات ووسائط متعدده، وتنمية شخصية الطالب لجعله قادرا على المشاركة في بناء الاقتصاد القائم على المعرفة، وراغبا في الابتكار ومحبا للعمل الجماعى ومدركا لقيم التعليم المستمر والتعلم الذاتى، وقادرا على المنافسة المحلية والإقليمية والدولية في سوق العمل، والتفاعل الخلاق مع المجتمع ورواد الأعمال."
+                        android:textColor="#EFE5E5"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="218dp">
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:gravity="center"
+                        android:text="رساله الكليه"
+                        android:textColor="#DFDADA"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView17"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView17"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="306dp"
+                        android:layout_height="155dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="تطمح كلية الحاسبات والمعلومات أن تكون مؤسسة تعليمية بحثية رائدة في مجال الحوسبة وتنمية المجتمع في ضوء معايير الجودة العالمية"
+                        android:textColor="#E1DBDB"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="89dp"
+                    app:layout_constraintEnd_toStartOf="@+id/about_web"
+                    app:layout_constraintStart_toStartOf="@+id/about_web">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/about_face"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:src="@drawable/ic_facebook"
+                        app:backgroundTint="#EEF4F4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.236"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.393" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/about_web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:src="@drawable/ic_baseline_web_asset_24"
+                        app:backgroundTint="#E6F1F0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.67"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.393" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

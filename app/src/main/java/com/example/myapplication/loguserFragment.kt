@@ -1,13 +1,23 @@
 package com.example.myapplication
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.style.TextAppearanceSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.FirebaseCommonRegistrar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.sql.DatabaseMetaData
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +30,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class loguserFragment : Fragment() {
+    var mAuth : FirebaseAuth?=null
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,8 +48,8 @@ class loguserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_loguser, container, false)
+
     }
 
     companion object {
@@ -59,15 +71,67 @@ class loguserFragment : Fragment() {
                 }
             }
     }
+    var sta : String ="false"
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-
         super.onActivityCreated(savedInstanceState)
         val myButton = view?.findViewById<Button>(R.id.login_user) as Button
+
+        val e   = view?.findViewById(R.id.log_email) as TextView
+        val p   = view?.findViewById(R.id.pass_email) as TextView
         myButton.setOnClickListener(){
-          //  Toast.makeText(context, "ssasa", Toast.LENGTH_SHORT).show()
-           startActivity(Intent(context,MainActivity::class.java))
+
+            mAuth = FirebaseAuth.getInstance()
+            val email = e.text.toString()
+            val pass = p.text.toString()
+            if(email.isNotEmpty() && pass.isNotEmpty())
+            {
+                mAuth?.signInWithEmailAndPassword(email,pass)?.addOnCompleteListener {
+                    if(it.isSuccessful)
+                    {
+                      Toast.makeText(context, "wellcome !!", Toast.LENGTH_SHORT).show()
+                        verify()
+                    }
+                    else { Toast.makeText(context, "INVALID EMAIL OR PASSWORD", Toast.LENGTH_SHORT).show() }
+                }
+            }
+            else { Toast.makeText(context, "Empity Filed", Toast.LENGTH_SHORT).show() }
+        }
+        val myButton2 = view?.findViewById<Button>(R.id.back_regist) as Button
+        myButton2.setOnClickListener(){ activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,registerFragment())?.commitNow() }
+        val cb_single =  view?.findViewById<CheckBox>(R.id.remimber) as CheckBox
+        cb_single.setOnClickListener(View.OnClickListener {
+            if (cb_single.isChecked ) {
+                sta ="ture"
+            }
+            else{
+                sta= "false"
+            }
+        })
+      val myButton5 = view?.findViewById<Button>(R.id.forgot_pass) as Button
+        myButton5.setOnClickListener(){
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,resitpassworedFragment())?.commitNow()
 
         }
-
     }
+
+    private fun verify()
+    {
+        val vuser = mAuth?.currentUser
+        if(vuser!!.isEmailVerified)
+        {
+            startActivity(Intent(context,MainActivity::class.java))
+            if(sta == "ture")
+            {
+                var share: SharedPreferences? = null
+                share = context?.getSharedPreferences("remimber", 0)
+                var edit: SharedPreferences.Editor = share?.edit()!!
+                edit.putString("stata", "active")
+                edit.commit()
+
+            }
+        }
+        else { Toast.makeText(context, "plase go verified your account ... ", Toast.LENGTH_SHORT).show() }
+    }
+
+
 }

@@ -1,10 +1,17 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.fragment.app.Fragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,10 +20,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [schedualFragment.newInstance] factory method to
+ * Use the [Alerts_Fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class schedualFragment : Fragment() {
+class Alerts_Fragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +41,7 @@ class schedualFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedual, container, false)
+        return inflater.inflate(R.layout.fragment_alerts_, container, false)
     }
 
     companion object {
@@ -44,12 +51,12 @@ class schedualFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment schedualFragment.
+         * @return A new instance of fragment Alerts_Fragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            schedualFragment().apply {
+            Alerts_Fragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -59,6 +66,33 @@ class schedualFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.setTitle("schedule")
+        activity?.setTitle("Alerts")
+        val database = Firebase.database
+        val myRef = database.getReference("Noitifaction")
+        val rec = view?.findViewById<ListView>(R.id.list) as ListView
+        var ans = 0
+        myRef.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val myarray = arrayListOf<String>()
+                for (i in dataSnapshot.children) {
+                    var v = i.getValue(String::class.java)
+                    myarray.add(v.toString())
+                }
+                myarray.reverse()
+
+                val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1,myarray )
+                rec.adapter = myadp
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+
+
     }
+
 }

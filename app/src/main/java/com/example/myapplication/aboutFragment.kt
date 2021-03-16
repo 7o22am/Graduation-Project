@@ -1,10 +1,13 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,5 +58,25 @@ class aboutFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+       activity?.setTitle("About")
+        val myButton = view?.findViewById<FloatingActionButton>(R.id.about_face) as FloatingActionButton
+        val myButton2 = view?.findViewById<FloatingActionButton>(R.id.about_web) as FloatingActionButton
+        myButton2.setOnClickListener {
+            val url = "http://www.aun.edu.eg/faculty_computer_information/arabic/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+
+        }
+        myButton.setOnClickListener {
+            val url = "https://www.facebook.com/groups/FCIAssiutUniversity"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
     }
 }

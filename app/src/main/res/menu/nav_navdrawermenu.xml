@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/nav_user_seche"
-    android:icon="@drawable/ic_home"
-    android:title="جـدولــي"/>
-    <item android:id="@+id/nav_inf"
-    android:icon="@drawable/ic_per"
-    android:title="معلومـاتي "/>
-    <item android:id="@+id/nav_about"
-        android:icon="@drawable/ic_inf"
-        android:title="عـن الكليـه "/>
 
-    <item android:id="@+id/nav_share"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_user_seche"
+        android:icon="@drawable/ic_home"
+        android:title="School Schedule" />
+    <item
+        android:id="@+id/nav_alerts"
+        android:icon="@drawable/ic_baseline_add_alert_24"
+        android:title="Alerts" />
+    <item
+        android:id="@+id/nav_inf"
+        android:icon="@drawable/ic_per"
+        android:title="profile" />
+    <item
+        android:id="@+id/nav_location"
+        android:icon="@drawable/ic_location"
+        android:title="Location" />
+    <item
+        android:id="@+id/nav_share"
         android:icon="@drawable/ic_share"
-        android:title="مشاركـه "/>
+        android:title="Share" />
+    <item
+        android:id="@+id/nav_about"
+        android:icon="@drawable/ic_inf"
+        android:title="About" />
+
+    <item
+        android:id="@+id/nav_send_feedback"
+        android:icon="@drawable/ic_feedback"
+        android:title="Send Feedback" />
+    <item
+        android:id="@+id/nav_log_out"
+        android:icon="@drawable/ic_log"
+        android:title="Log Out" />
 
 
 </menu>
+

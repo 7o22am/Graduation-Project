@@ -47,14 +47,13 @@ class loginFragment : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
         val myButton = view?.findViewById<Button>(R.id.login) as Button
-       val myButton2 = view?.findViewById<Button>(R.id.register) as Button
+     val myButton2 = view?.findViewById<Button>(R.id.regist) as Button
        myButton2.setOnClickListener(){
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,registerFragment())?.commitNow()
         }
         myButton.setOnClickListener(){
-            ///Toast.makeText(context, "ssasa", Toast.LENGTH_SHORT).show()
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,loguserFragment())?.commitNow()
-
         }
     }
+
 }
