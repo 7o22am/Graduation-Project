@@ -1,8 +1,10 @@
 package com.example.myapplication
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.style.TextAppearanceSpan
 import androidx.fragment.app.Fragment
@@ -79,22 +81,31 @@ class loguserFragment : Fragment() {
         val e   = view?.findViewById(R.id.log_email) as TextView
         val p   = view?.findViewById(R.id.pass_email) as TextView
         myButton.setOnClickListener(){
-
-            mAuth = FirebaseAuth.getInstance()
-            val email = e.text.toString()
-            val pass = p.text.toString()
-            if(email.isNotEmpty() && pass.isNotEmpty())
-            {
-                mAuth?.signInWithEmailAndPassword(email,pass)?.addOnCompleteListener {
-                    if(it.isSuccessful)
-                    {
-                      Toast.makeText(context, "wellcome !!", Toast.LENGTH_SHORT).show()
-                        verify()
+            val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val netinf =cm.activeNetworkInfo
+            if (netinf!=null && netinf.isConnected) {
+                mAuth = FirebaseAuth.getInstance()
+                val email = e.text.toString()
+                val pass = p.text.toString()
+                if (email.isNotEmpty() && pass.isNotEmpty()) {
+                    mAuth?.signInWithEmailAndPassword(email, pass)?.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(context, "wellcome !!", Toast.LENGTH_SHORT).show()
+                            verify()
+                        } else {
+                            Toast.makeText(context, "INVALID EMAIL OR PASSWORD", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
-                    else { Toast.makeText(context, "INVALID EMAIL OR PASSWORD", Toast.LENGTH_SHORT).show() }
+                } else {
+                    Toast.makeText(context, "Empity Filed", Toast.LENGTH_SHORT).show()
                 }
             }
-            else { Toast.makeText(context, "Empity Filed", Toast.LENGTH_SHORT).show() }
+            else {
+                Toast.makeText(context, "NO INTERNET ..", Toast.LENGTH_LONG).show()
+            }
+
+
         }
         val myButton2 = view?.findViewById<Button>(R.id.back_regist) as Button
         myButton2.setOnClickListener(){ activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,registerFragment())?.commitNow() }

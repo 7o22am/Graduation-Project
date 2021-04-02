@@ -1,11 +1,14 @@
 package com.example.myapplication
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -40,8 +43,15 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netinf =cm.activeNetworkInfo
+        if (netinf!=null && netinf.isConnected) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        mapFragment?.getMapAsync(callback)}
+        else {
+            Toast.makeText(context, "NO INTERNET..", Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }

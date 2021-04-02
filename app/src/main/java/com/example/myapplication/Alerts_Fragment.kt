@@ -70,27 +70,32 @@ class Alerts_Fragment : Fragment() {
         val database = Firebase.database
         val myRef = database.getReference("Noitifaction")
         val rec = view?.findViewById<ListView>(R.id.list) as ListView
-        var ans = 0
-        myRef.addValueEventListener(object : ValueEventListener {
+      try {
+          myRef.addValueEventListener(object : ValueEventListener {
+              override fun onDataChange(dataSnapshot: DataSnapshot) {
+                  val myarray = arrayListOf<String>()
+                  for (i in dataSnapshot.children) {
+                      var v = i.getValue(String::class.java)
+                      myarray.add(v.toString())
+                  }
+                  myarray.reverse()
 
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val myarray = arrayListOf<String>()
-                for (i in dataSnapshot.children) {
-                    var v = i.getValue(String::class.java)
-                    myarray.add(v.toString())
-                }
-                myarray.reverse()
+                  val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1
+                      , myarray)
+                  rec.adapter = myadp
 
-                val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1,myarray )
-                rec.adapter = myadp
-            }
+              }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-            }
+              override fun onCancelled(error: DatabaseError) {
+                  Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+              }
 
-        })
-
+          })
+      }
+      catch (ex:Exception)
+      {
+          Toast.makeText(context, "load .. ", Toast.LENGTH_SHORT).show()
+      }
 
 
     }

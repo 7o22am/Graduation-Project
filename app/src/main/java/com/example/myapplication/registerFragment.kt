@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -77,44 +79,52 @@ class registerFragment : Fragment() {
        }
        val myButton = view?.findViewById<Button>(R.id.regist_user) as Button
            myButton.setOnClickListener {
-               val n   = view?.findViewById(R.id.r_name) as TextView
-               val e   = view?.findViewById(R.id.r_email) as TextView
-               val p   = view?.findViewById(R.id.r_pass) as TextView
-               val rp   = view?.findViewById(R.id.r_rpass) as TextView
-               val ph   = view?.findViewById(R.id.r_phone) as TextView
-               val le   = view?.findViewById(R.id.r_level) as TextView
+               val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+               val netinf =cm.activeNetworkInfo
+               if (netinf!=null && netinf.isConnected) {
+               val n = view?.findViewById(R.id.r_name) as TextView
+               val e = view?.findViewById(R.id.r_email) as TextView
+               val p = view?.findViewById(R.id.r_pass) as TextView
+               val rp = view?.findViewById(R.id.r_rpass) as TextView
+               val ph = view?.findViewById(R.id.r_phone) as TextView
+               val le = view?.findViewById(R.id.r_level) as TextView
 
 
-            val email = e.text.toString()
-            val pass = p.text.toString()
-            val repass = rp.text.toString()
-            val phone = ph.text.toString()
-            val name = n.text.toString()
-            val level = le.text.toString()
-               var q1 :Boolean = false
-               var q2 :Boolean = false
-               var q3 :Boolean = false
-               var q4 :Boolean = false
-               if(email.contains("@") && email.contains(".") ){q1=true}
-               else {
-                   Toast.makeText(context, "INVAILED EMAIL", Toast.LENGTH_SHORT).show()}
-               if(pass == repass){q2=true}
-               else{
+               val email = e.text.toString()
+               val pass = p.text.toString()
+               val repass = rp.text.toString()
+               val phone = ph.text.toString()
+               val name = n.text.toString()
+               val level = le.text.toString()
+               var q1: Boolean = false
+               var q2: Boolean = false
+               var q3: Boolean = false
+               var q4: Boolean = false
+               if (email.contains("@") && email.contains(".")) {
+                   q1 = true
+               } else {
+                   Toast.makeText(context, "INVAILED EMAIL", Toast.LENGTH_SHORT).show()
+               }
+               if (pass == repass) {
+                   q2 = true
+               } else {
                    Toast.makeText(context, "INVAILED PASSWORED", Toast.LENGTH_SHORT).show()
                }
-               if(phone.length >=9 || phone.length <= 12){ q3 =true } else{
+               if (phone.length >= 9 || phone.length <= 12) {
+                   q3 = true
+               } else {
                    Toast.makeText(context, "INVAILED PHONE NUMBER", Toast.LENGTH_SHORT).show()
                }
-               if(name.isNotEmpty() && name.length>=3){q4=true}
-               else
-               {
+               if (name.isNotEmpty() && name.length >= 3) {
+                   q4 = true
+               } else {
                    Toast.makeText(context, "INVAILED NAME", Toast.LENGTH_SHORT).show()
                }
 
-               if(q4 == true && q1==true && q2 == true && q3 ==true) {
+               if (q4 == true && q1 == true && q2 == true && q3 == true) {
 
                    myAuth?.createUserWithEmailAndPassword(email, pass)?.addOnCompleteListener {
-                       if(it.isSuccessful) {
+                       if (it.isSuccessful) {
                            var u: Users = Users()
                            u.gmail = email
                            u.name = name
@@ -124,18 +134,26 @@ class registerFragment : Fragment() {
                            u.id = myAuth.currentUser!!.uid.toString()
                            u.level = level
                            userDataBase.document(myAuth.currentUser!!.uid.toString()).set(u)
-                           Toast.makeText(context, "go verify your account  ", Toast.LENGTH_SHORT).show()
+                           Toast.makeText(context, "go verify your account  ", Toast.LENGTH_SHORT)
+                               .show()
                            sendvverify()
-                           activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,loguserFragment())?.commitNow()
-                       }
-                       else
-                       {
-                           Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                           Toast.makeText(context, "chick your internet plz .. ", Toast.LENGTH_LONG).show()
+                           activity?.supportFragmentManager?.beginTransaction()
+                               ?.replace(R.id.fragment, loguserFragment())?.commitNow()
+                       } else {
+                           Toast.makeText(context, "Try again later, sorry ", Toast.LENGTH_SHORT)
+                               .show()
+
                        }
                    }
 
+
                }
+           }
+               else
+               {
+                   Toast.makeText(context, "NO INTERNET ..", Toast.LENGTH_LONG).show()
+               }
+
         }
     }
 

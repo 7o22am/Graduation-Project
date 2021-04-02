@@ -1,9 +1,8 @@
 package com.example.myapplication
 
-import android.content.ContentValues.TAG
-import android.content.Intent
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -69,30 +65,40 @@ class send_feedback_Fragment : Fragment() {
                 }
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?. setTitle("Feedback")
+        activity?.setTitle("Feedback")
         val myButton = view?.findViewById<FloatingActionButton>(R.id.send_feedback) as FloatingActionButton
         val f = view?.findViewById<EditText>(R.id.feedback) as EditText
         val e = view?.findViewById<EditText>(R.id.email_feedback) as EditText
-        myButton.setOnClickListener {
-
-            val s: String = f.text.toString()
-            val s2: String = e.text.toString()
-            val database = Firebase.database
-            val myRef = database.getReference("Feedback")
-if(s.length>3) {
-    myRef.push().setValue(s2 + ">>" + s)
-    Toast.makeText(context, "Send", Toast.LENGTH_LONG).show()
-    activity?. setTitle("schedule")
-    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,homeFragment())?.commitNow()
 
 
-}
-            else
-{
-    Toast.makeText(context, "Nothing to Send", Toast.LENGTH_LONG).show()
-}
+
+            myButton.setOnClickListener {
+                val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val netinf =cm.activeNetworkInfo
+                if (netinf!=null && netinf.isConnected) {
+                val s: String = f.text.toString()
+                val s2: String = e.text.toString()
+                val database = Firebase.database
+                val myRef = database.getReference("Feedback")
+                if (s.length > 3) {
+                    myRef.push().setValue(s2 + ">>" + s)
+                    Toast.makeText(context, "Send", Toast.LENGTH_LONG).show()
+                    activity?.setTitle("schedule")
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment, homeFragment())?.commitNow()
+                } else {
+                    Toast.makeText(context, "Nothing to Send", Toast.LENGTH_LONG).show()
+                }
+
+            }else
+                {
+                    Toast.makeText(context, "No INTERNET ..  ", Toast.LENGTH_LONG).show()
+                }
         }
+
     }
+
+
 }

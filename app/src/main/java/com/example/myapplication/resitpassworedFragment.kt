@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,26 +71,33 @@ class resitpassworedFragment : Fragment() {
 
         myButton.setOnClickListener()
         {
-            val e = view?.findViewById<EditText>(R.id.resit_email) as EditText
-            val s: String = e.text.toString()
-            if (s.contains("@") && s.contains(".")) {
-                mAuth = FirebaseAuth.getInstance()
-                mAuth!!.sendPasswordResetEmail(e.text.toString())
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(context, "Email send to gmail ", Toast.LENGTH_LONG)
-                                .show()
-                            activity?.supportFragmentManager?.beginTransaction()
-                                ?.replace(R.id.fragment, loguserFragment())?.commitNow()
-                        } else {
-                            Toast.makeText(context, "email not found", Toast.LENGTH_SHORT).show()
+            val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val netinf = cm.activeNetworkInfo
+            if (netinf != null && netinf.isConnected) {
+                val e = view?.findViewById<EditText>(R.id.resit_email) as EditText
+                val s: String = e.text.toString()
+                if (s.contains("@") && s.contains(".")) {
+                    mAuth = FirebaseAuth.getInstance()
+                    mAuth!!.sendPasswordResetEmail(e.text.toString())
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(context, "Email send to gmail ", Toast.LENGTH_LONG)
+                                    .show()
+                                activity?.supportFragmentManager?.beginTransaction()
+                                    ?.replace(R.id.fragment, loguserFragment())?.commitNow()
+                            } else {
+                                Toast.makeText(context, "email not found", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
-                    }
+                } else {
+                    Toast.makeText(context, "invailed email ", Toast.LENGTH_SHORT).show()
+                }
             }
-            else
-            {
-                Toast.makeText(context ,"invailed email ", Toast.LENGTH_SHORT).show()
+            else {
+                Toast.makeText(context, "NO INTERNET ..", Toast.LENGTH_LONG).show()
             }
         }
+
     }
 }
