@@ -91,7 +91,6 @@ class send_feedback_Fragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Nothing to Send", Toast.LENGTH_LONG).show()
                 }
-
             }else
                 {
                     Toast.makeText(context, "No INTERNET ..  ", Toast.LENGTH_LONG).show()

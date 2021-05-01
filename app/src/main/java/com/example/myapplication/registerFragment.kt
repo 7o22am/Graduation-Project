@@ -145,8 +145,6 @@ class registerFragment : Fragment() {
 
                        }
                    }
-
-
                }
            }
                else
@@ -158,17 +156,11 @@ class registerFragment : Fragment() {
     }
 
     private fun sendvverify()
-    {
-        var suser = myAuth?.currentUser
+    { var suser = myAuth?.currentUser
         suser?.sendEmailVerification()?.addOnCompleteListener{
-            if(it.isSuccessful)
-            {
-                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,loguserFragment())?.commitNow()
-            }
+            if(it.isSuccessful) { activity?.supportFragmentManager?.beginTransaction()?.
+            replace(R.id.fragment,loguserFragment())?.commitNow() }
             else
-            {
-                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
+            { Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()} }
     }
 }

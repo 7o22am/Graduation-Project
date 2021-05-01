@@ -75,29 +75,21 @@ class Alerts_Fragment : Fragment() {
               override fun onDataChange(dataSnapshot: DataSnapshot) {
                   val myarray = arrayListOf<String>()
                   for (i in dataSnapshot.children) {
-                      var v = i.getValue(String::class.java)
-                      myarray.add(v.toString())
-                  }
+                      val v = i.getValue(String::class.java)
+                      myarray.add(v.toString())}
                   myarray.reverse()
-
-                  val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1
-                      , myarray)
+                  val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, myarray)
                   rec.adapter = myadp
-
               }
-
               override fun onCancelled(error: DatabaseError) {
                   Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
               }
-
           })
       }
       catch (ex:Exception)
       {
           Toast.makeText(context, "load .. ", Toast.LENGTH_SHORT).show()
       }
-
-
     }
 
 }

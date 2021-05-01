@@ -76,7 +76,7 @@ class inf_user_Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
-activity?.setTitle("Profile ")
+            activity?.setTitle("Profile ")
         val u_name1 = view?.findViewById(R.id.u_name) as TextView
         val u_phone1 = view?.findViewById(R.id.u_phone) as TextView
         val u_email1 = view?.findViewById(R.id.u_email) as TextView

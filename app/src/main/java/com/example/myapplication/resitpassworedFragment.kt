@@ -68,7 +68,6 @@ class resitpassworedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val myButton = view?.findViewById<Button>(R.id.resit_bt) as Button
-
         myButton.setOnClickListener()
         {
             val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

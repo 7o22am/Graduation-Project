@@ -138,10 +138,10 @@ class loguserFragment : Fragment() {
                 var edit: SharedPreferences.Editor = share?.edit()!!
                 edit.putString("stata", "active")
                 edit.commit()
-
             }
         }
-        else { Toast.makeText(context, "plase go verified your account ... ", Toast.LENGTH_SHORT).show() }
+        else { Toast.makeText(context, "plase go verified your account ... ",
+                Toast.LENGTH_SHORT).show() }
     }
 
 
