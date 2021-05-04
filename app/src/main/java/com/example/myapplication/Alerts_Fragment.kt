@@ -1,16 +1,22 @@
 package com.example.myapplication
 
+import android.content.Context
+import android.icu.text.Transliterator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.android.material.animation.Positioning
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_row.view.*
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -70,26 +76,71 @@ class Alerts_Fragment : Fragment() {
         val database = Firebase.database
         val myRef = database.getReference("Noitifaction")
         val rec = view?.findViewById<ListView>(R.id.list) as ListView
-      try {
-          myRef.addValueEventListener(object : ValueEventListener {
-              override fun onDataChange(dataSnapshot: DataSnapshot) {
-                  val myarray = arrayListOf<String>()
-                  for (i in dataSnapshot.children) {
-                      val v = i.getValue(String::class.java)
-                      myarray.add(v.toString())}
-                  myarray.reverse()
-                  val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, myarray)
-                  rec.adapter = myadp
-              }
-              override fun onCancelled(error: DatabaseError) {
-                  Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-              }
-          })
-      }
-      catch (ex:Exception)
-      {
-          Toast.makeText(context, "load .. ", Toast.LENGTH_SHORT).show()
-      }
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val myarray = arrayListOf<String>()
+                for (i in dataSnapshot.children) {
+                    val v = i.getValue(String::class.java)
+                    val s = v.toString()
+                    myarray.add(s)
+                }
+                myarray.reverse()
+            //    val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, myarray)
+                rec.adapter = context?.let { my_custom_adp(it , myarray) }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+    }
+
+    private class my_custom_adp(context: Context, array: ArrayList<String>) : BaseAdapter()
+    {
+        val mycontex :Context
+        val myarr :ArrayList<String>
+        init {
+            this.mycontex=context
+            this.myarr=array
+
+        }
+        override fun getCount(): Int {
+            return myarr.size
+        }
+
+        override fun getItem(p0: Int): Any {
+            return ""
+        }
+
+        override fun getItemId(p0: Int): Long {
+            return p0.toLong()
+        }
+
+        override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row,p2,false)
+
+         //  my_layout_inf.message.text = myarr[p0]
+           // my_layout_inf.img.setImageResource(R.drawable.ic_facebook)
+
+
+                 if (myarr[p0].contains("firebasestorage.googleapis.com") ) {
+                    Picasso.get()
+                        .load(myarr[p0] )
+                        .resize(1050, 1200)
+                        .into(my_layout_inf.img)
+                }
+                else
+                {
+                    my_layout_inf.message.text=myarr[p0]+"\n"
+                }
+
+            return my_layout_inf
+
+
+        }
+
     }
 
 }
