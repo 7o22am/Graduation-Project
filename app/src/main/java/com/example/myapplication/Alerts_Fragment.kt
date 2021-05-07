@@ -1,23 +1,55 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
-import android.icu.text.Transliterator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.google.android.material.animation.Positioning
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_alerts_.*
 import kotlinx.android.synthetic.main.list_row.view.*
 
+class CustomAlert {
 
+    fun showDialog(activity: Activity?) {
+        val dialog = Dialog(activity!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_layout)
+        val text = dialog.findViewById<View>(R.id.text_dialog) as TextView
+        var s =""
+        val dialogButton: Button = dialog.findViewById<View>(R.id.btn_dialog) as Button
+        val dialogButton2: Button = dialog.findViewById<View>(R.id.btn2_dialog) as Button
+        dialogButton.setOnClickListener {
+
+            val database = Firebase.database
+            val myRef2 = database.getReference("Noitifaction")
+            var s=text.text.toString()
+            if(s.length>3) {
+                myRef2.push().setValue(s)
+            }
+            dialog.dismiss()
+        }
+        dialogButton2.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+}
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +62,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Alerts_Fragment : Fragment() {
+    var myAuth= FirebaseAuth.getInstance()
+    val userDataBase= FirebaseFirestore.getInstance().collection("Users");
+    val storge = FirebaseStorage.getInstance()
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -75,6 +110,27 @@ class Alerts_Fragment : Fragment() {
         activity?.setTitle("Alerts")
         val database = Firebase.database
         val myRef = database.getReference("Noitifaction")
+        val myRef2 = database.getReference("Feedback")
+
+        var u: Users? = null
+        val ss :String="Teacher"
+        userDataBase.document(myAuth.currentUser!!.uid.toString()).get().addOnSuccessListener {
+            u = it.toObject(Users::class.java)!!
+          if (u?.type.toString() == ss) {
+              fab.isVisible = true
+          }
+        }
+fab.setOnClickListener{
+
+    val alert = CustomAlert()
+     alert.showDialog(context as Activity?)
+
+}
+
+
+
+
+
         val rec = view?.findViewById<ListView>(R.id.list) as ListView
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -85,8 +141,8 @@ class Alerts_Fragment : Fragment() {
                     myarray.add(s)
                 }
                 myarray.reverse()
-            //    val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, myarray)
-                rec.adapter = context?.let { my_custom_adp(it , myarray) }
+                //    val myadp = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, myarray)
+                rec.adapter = context?.let { my_custom_adp(it, myarray) }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -119,7 +175,7 @@ class Alerts_Fragment : Fragment() {
         }
 
         override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row,p2,false)
+val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row, p2, false)
 
          //  my_layout_inf.message.text = myarr[p0]
            // my_layout_inf.img.setImageResource(R.drawable.ic_facebook)
@@ -127,7 +183,7 @@ val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row,p2,f
 
                  if (myarr[p0].contains("firebasestorage.googleapis.com") ) {
                     Picasso.get()
-                        .load(myarr[p0] )
+                        .load(myarr[p0])
                         .resize(1050, 1200)
                         .into(my_layout_inf.img)
                 }
@@ -144,3 +200,5 @@ val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row,p2,f
     }
 
 }
+
+

@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="#FAF7F7"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"

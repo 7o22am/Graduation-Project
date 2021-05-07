@@ -83,12 +83,14 @@ class inf_user_Fragment : Fragment() {
         val u_level = view?.findViewById(R.id.u_lev) as TextView
 
         var u: Users? = null
+        var s :String
        userDataBase.document(myAuth.currentUser!!.uid.toString()).get().addOnSuccessListener {
             u = it.toObject(Users::class.java)!!
             u_email1.text = u?.gmail
             u_name1.text = u?.name?.toUpperCase()
             u_phone1.text =  u?.phone
            u_level.text =  u?.level
+           s = u?.type.toString()
 
         }
         val myButton = view?.findViewById<FloatingActionButton>(R.id.inf_resit) as FloatingActionButton
