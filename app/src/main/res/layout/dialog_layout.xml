@@ -12,13 +12,14 @@
 
         <ImageView
             android:id="@+id/a"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="390dp"
+            android:layout_height="48dp"
             android:background="#0097a7"
             android:gravity="center"
             android:scaleType="center"
             android:src="@android:drawable/ic_dialog_alert"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,8 +48,8 @@
 
         <Button
             android:id="@+id/btn2_dialog"
-            android:layout_width="160dp"
-            android:layout_height="42dp"
+            android:layout_width="153dp"
+            android:layout_height="44dp"
             android:text="Exit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ListView
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_home.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,9 +66,76 @@ class homeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val database = Firebase.database
+        val myRef = database.getReference("table1")
+        val myRef2 = database.getReference("table2")
+        val myRef3 = database.getReference("table3")
+        val myRef4 = database.getReference("table4")
 
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var ans ="";
+                for (i in dataSnapshot.children) {
+                    val v = i.getValue(String::class.java)
+                    val s = v.toString()
+                   ans+=s+'\n'+'\n';
 
+                }
+                table_1.text=ans.toString();
 
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        })
+        myRef2.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var ans ="";
+                for (i in dataSnapshot.children) {
+                    val v = i.getValue(String::class.java)
+                    val s = v.toString()
+                    ans+=s+'\n'+'\n';
+
+                }
+                table_2.text=ans.toString();
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        })
+        myRef3.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var ans ="";
+                for (i in dataSnapshot.children) {
+                    val v = i.getValue(String::class.java)
+                    val s = v.toString()
+                    ans+=s+'\n'+'\n';
+
+                }
+                table_3.text=ans.toString();
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        })
+        myRef4.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var ans ="";
+                for (i in dataSnapshot.children) {
+                    val v = i.getValue(String::class.java)
+                    val s = v.toString()
+                    ans+=s+'\n'+'\n';
+
+                }
+                table_4.text=ans.toString()+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n'+'\n';
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        })
 
     }
 }
