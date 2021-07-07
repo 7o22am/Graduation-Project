@@ -85,8 +85,8 @@ class loguserFragment : Fragment() {
             val netinf =cm.activeNetworkInfo
             if (netinf!=null && netinf.isConnected) {
                 mAuth = FirebaseAuth.getInstance()
-                val email = e.text.toString()
-                val pass = p.text.toString()
+                val email = e.text.toString().trim()
+                val pass = p.text.toString().trim()
                 if (email.isNotEmpty() && pass.isNotEmpty()) {
                     mAuth?.signInWithEmailAndPassword(email, pass)?.addOnCompleteListener {
                         if (it.isSuccessful) {

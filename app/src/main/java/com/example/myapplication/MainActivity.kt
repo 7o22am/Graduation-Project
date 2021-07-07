@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                         setTitle("share")
                     }
                     R.id.nav_location -> {
-                        supportFragmentManager?.beginTransaction()?.replace(R.id.fragment, MapsFragment())?.commitNow()
+                        supportFragmentManager?.beginTransaction()?.replace(R.id.fragment, Map())?.commitNow()
                         setTitle("location")
                         drawer.closeDrawers();
                     }

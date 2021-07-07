@@ -181,6 +181,7 @@ val my_layout_inf = LayoutInflater.from(mycontex).inflate(R.layout.list_row, p2,
            // my_layout_inf.img.setImageResource(R.drawable.ic_facebook)
 
 
+
                  if (myarr[p0].contains("firebasestorage.googleapis.com") ) {
                     Picasso.get()
                         .load(myarr[p0])

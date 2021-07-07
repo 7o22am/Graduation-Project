@@ -25,13 +25,13 @@
 
         <EditText
             android:id="@+id/text_dialog"
-            android:layout_width="396dp"
-            android:layout_height="45dp"
+            android:layout_width="377dp"
+            android:layout_height="53dp"
             android:layout_marginTop="60dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.442"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

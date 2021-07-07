@@ -34,7 +34,7 @@
             android:id="@+id/list"
             android:layout_width="412dp"
             android:layout_height="694dp"
-            android:background="#F1EAEA"
+            android:background="#0B1F3E"
             android:cacheColorHint="#FFFFFF"
             android:textAlignment="center"
             android:textColor="#F4EDED"

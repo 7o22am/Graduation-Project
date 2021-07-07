@@ -74,10 +74,10 @@ class resitpassworedFragment : Fragment() {
             val netinf = cm.activeNetworkInfo
             if (netinf != null && netinf.isConnected) {
                 val e = view?.findViewById<EditText>(R.id.resit_email) as EditText
-                val s: String = e.text.toString()
+                val s: String = e.text.toString().trim()
                 if (s.contains("@") && s.contains(".")) {
                     mAuth = FirebaseAuth.getInstance()
-                    mAuth!!.sendPasswordResetEmail(e.text.toString())
+                    mAuth!!.sendPasswordResetEmail(e.text.toString().trim())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Toast.makeText(context, "Email send to gmail ", Toast.LENGTH_LONG)

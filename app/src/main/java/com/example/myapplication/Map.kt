@@ -1,14 +1,11 @@
 package com.example.myapplication
 
-import android.content.Context
-import android.net.ConnectivityManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -17,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsFragment : Fragment() {
+class Map : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -29,7 +26,6 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        activity?.setTitle("location")
         val sydney = LatLng(27.1865771, 31.1688901)
         googleMap.addMarker(MarkerOptions().position(sydney).title("كليه الحاسبات والمعلومات جامعه اسيوط"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15f))
@@ -38,20 +34,12 @@ class MapsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netinf =cm.activeNetworkInfo
-        if (netinf!=null && netinf.isConnected) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)}
-        else {
-            Toast.makeText(context, "NO INTERNET..", Toast.LENGTH_LONG).show()
-        }
-
+        mapFragment?.getMapAsync(callback)
     }
-
 }

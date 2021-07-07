@@ -90,9 +90,9 @@ class registerFragment : Fragment() {
                val le = view?.findViewById(R.id.r_level) as TextView
 
 
-               val email = e.text.toString()
-               val pass = p.text.toString()
-               val repass = rp.text.toString()
+               val email = e.text.toString().trim()
+               val pass = p.text.toString().trim()
+               val repass = rp.text.toString().trim()
                val phone = ph.text.toString()
                val name = n.text.toString()
                val level = le.text.toString()
